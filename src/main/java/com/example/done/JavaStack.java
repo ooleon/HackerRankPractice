@@ -20,7 +20,9 @@ public class JavaStack {
 		Scanner sc = new Scanner(System.in);
 		while (sc.hasNext()) {
 		String input=sc.next();
-                System.out.println(validar(input));
+                System.out.println(
+				isBoolean(validar(input))
+				);
 		}
     }
 
@@ -48,5 +50,10 @@ public class JavaStack {
             return false;
         }
         return false;
+    }
+
+    static String isBoolean(boolean s){
+	Boolean b = new Boolean(s);
+	return b.toString();
     }
 }
