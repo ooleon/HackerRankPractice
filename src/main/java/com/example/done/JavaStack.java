@@ -9,51 +9,50 @@ import java.util.*;
 /**
  *
  * @author leo
- * Brackets in Balance 
- * https://www.hackerrank.com/challenges/java-stack/problem?isFullScreen=true
+ *         Brackets in Balance
+ *         https://www.hackerrank.com/challenges/java-stack/problem?isFullScreen=true
  *
  */
 public class JavaStack {
 
-    public static void main(String[] argh) {
-         String s = "{}({()()()()}{{}}{})";
+	public static void main(String[] argh) {
+		String s = "{}({()()()()}{{}}{})";
 		Scanner sc = new Scanner(System.in);
 		while (sc.hasNext()) {
-		String input=sc.next();
-                System.out.println(
-				isBoolean(validar(input))
-				);
+			String input = sc.next();
+			System.out.println(
+					isBoolean(validar(input)));
 		}
-    }
+	}
 
-    static boolean validar(String s) {
-        Stack st = new Stack();
+	static boolean validar(String s) {
+		Stack st = new Stack();
 
-        if (s.isEmpty()) {
-            return true;
-        }
-        for (Character c : s.toCharArray()) {
-            if ("({(".contains(c.toString())) {
-                st.push(c);
-            }
-            if (st.empty() && ")})".contains(c.toString())) {
-                return false;
-            }
-            if (")})".contains(c.toString())) {
-                st.pop();
-            }
-        }
-        if (st.empty()) {
-            return true;
-        }
-        if (!st.empty()) {
-            return false;
-        }
-        return false;
-    }
+		if (s.isEmpty()) {
+			return true;
+		}
+		for (Character c : s.toCharArray()) {
+			if ("({(".contains(c.toString())) {
+				st.push(c);
+			}
+			if (st.empty() && ")})".contains(c.toString())) {
+				return false;
+			}
+			if (")})".contains(c.toString())) {
+				st.pop();
+			}
+		}
+		if (st.empty()) {
+			return true;
+		}
+		if (!st.empty()) {
+			return false;
+		}
+		return false;
+	}
 
-    static String isBoolean(boolean s){
-	Boolean b = new Boolean(s);
-	return b.toString();
-    }
+	static String isBoolean(boolean s) {
+		Boolean b = new Boolean(s);
+		return b.toString();
+	}
 }
