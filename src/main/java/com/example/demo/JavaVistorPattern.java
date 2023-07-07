@@ -22,9 +22,6 @@ import java.util.Scanner;
  * https://www.hackerrank.com/challenges/java-vistor-pattern/problem
  */
 
- public class Java_vistor_pattern {
-}
-
 enum Color {
     RED, GREEN
 }
@@ -141,10 +138,12 @@ class FancyVisitor extends TreeVis {
     }
 }
 
-public class Solution {
+public class JavaVistorPattern {
   
     public static Tree solve() {
         //read the tree from STDIN and return its root as a return value of this function
+    	//TODO
+    	return null;
     }
 
 
