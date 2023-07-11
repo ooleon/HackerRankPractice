@@ -16,7 +16,7 @@ import java.util.*;
 class FamilyMember {
 
 //	~~Complete this line~~
-@FamilyBudget(userRole = "senior", budgetLimit = 500 )
+@FamilyBudget(userRole = "SENIOR", budgetLimit = 100 )
 	public void seniorMember(int budget, int moneySpend) {
 		System.out.println("Senior Member");
 		System.out.println("Spend: " + moneySpend);
@@ -24,7 +24,7 @@ class FamilyMember {
 	}
 
 //	~~Complete this line~~
-@FamilyBudget(userRole = "junior", budgetLimit = 200 )
+@FamilyBudget(userRole = "JUNIOR", budgetLimit = 50 )
 	public void juniorUser(int budget, int moneySpend) {
 		System.out.println("Junior Member");
 		System.out.println("Spend: " + moneySpend);
