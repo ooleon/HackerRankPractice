@@ -28,10 +28,19 @@ public class JavaVistorPatternTest {
 				+ "1 2\n"
 				+ "1 3\n"
 				+ "3 4\n"
-				+ "3 5\n"
-				;
+				+ "3 5\n";
 		System.setIn(new ByteArrayInputStream(data.getBytes()));
 		JavaVistorPattern.main(null);
 		System.out.println(1);
 	}
+
+	//@Test
+	void test() {
+		int condition = 0;
+		do {
+			System.out.println(condition);
+			condition++;
+		} while (condition < 4);
+	}
+
 }

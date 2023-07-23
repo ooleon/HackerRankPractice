@@ -152,10 +152,10 @@ public class JavaVistorPattern {
 	static Tree root = null;
 	static TreeNode n;
 	static TreeLeaf l;
-	static List valoresList = new ArrayList<Integer>(nNodes);
+	static List<Integer> valoresList = new ArrayList<Integer>(nNodes);
 	static List<Color> colorsList = new ArrayList<Color>(nNodes);
-	static List uList = new ArrayList<Integer>(nNodes);
-	static List vList = new ArrayList<Integer>(nNodes);
+	static List<Integer> uList = new ArrayList<Integer>(nNodes);
+	static List<Integer> vList = new ArrayList<Integer>(nNodes);
 	static List<Integer> differences;
 	static Map<Integer, Set<Integer>> nodesRelationMap = new HashMap<>();
 
@@ -185,16 +185,19 @@ public class JavaVistorPattern {
 
 				int v = in.nextInt();
 				vList.add(v);
-
-				
 			}
 			differences = new ArrayList<>(vList);
 			differences.removeAll(uList);
 
-			root = recurciveTree(
-					(int) valoresList.get(myDepth),
-					colorsList.get(myDepth),
-					myDepth);
+			if (nNodes == 1) {
+				root = new TreeLeaf(valoresList.get(0), colorsList.get(0), 0);
+
+			} else {
+
+				TreeNode t = new TreeNode(valoresList.get(0), colorsList.get(0), 0);
+
+				root = generateTree(t);
+			}
 
 		} finally {
 		}
@@ -216,7 +219,18 @@ public class JavaVistorPattern {
 		return root;
 	}
 
-	private static Tree recurciveTree(int valor, Color color, int depth) {
+	private static Tree generateTree(TreeNode tree) {
+		int i = 0;
+		do {
+			// for (int j = i; j < uList.lastIndexOf(i); j++) {}
+
+			System.out.println("u: " + uList.get(i) + "\t v: " + vList.get(i));
+			i++;
+		} while (i < (uList.size()));
+		return tree;
+	}
+
+	private static Tree recurciveTree(int i, int valor, Color color, int depth) {
 		System.out.println("vuelta: " + depth);
 		if (differences.contains(depth)) {
 			System.out.println(depth + " hoja");
@@ -238,7 +252,8 @@ public class JavaVistorPattern {
 
 		} else {
 			return recurciveTree(
-					(int) valoresList.get(depth),
+					i,
+					valoresList.get(depth),
 					colorsList.get(depth),
 					depth);
 		}

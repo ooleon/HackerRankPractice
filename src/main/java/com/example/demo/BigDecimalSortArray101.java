@@ -43,5 +43,8 @@ public class BigDecimalSortArray101 {
         }
 
     }
+    void s(@No String ss){
+
+    }
 
 }
