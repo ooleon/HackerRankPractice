@@ -45,8 +45,5 @@ public class BigDecimalSortArray101 {
         }
 
     }
-    void testNull(@NonNull String noIsNull){
-
-    }
 
 }
