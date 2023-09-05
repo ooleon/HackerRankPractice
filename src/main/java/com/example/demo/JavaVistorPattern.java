@@ -10,6 +10,8 @@ import java.text.*;
 import java.math.*;
 import java.util.regex.*;
 
+
+
 /**
  *
  * @author leo
@@ -167,6 +169,7 @@ public class JavaVistorPattern {
 			nNodes = in.nextInt();
 
 			// adding values array
+			
 			for (int i = 0; i < nNodes; i++) {
 				int num = in.nextInt();
 				valoresList.add(num);
