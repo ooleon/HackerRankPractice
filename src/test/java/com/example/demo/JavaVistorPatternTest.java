@@ -7,6 +7,8 @@ import java.util.Iterator;
 import java.util.List;
 import org.junit.jupiter.api.*;
 
+import com.example.done.VistorPattern.JavaVistorPattern;
+
 public class JavaVistorPatternTest {
 
 	String data;

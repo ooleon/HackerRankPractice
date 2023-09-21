@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.example.demo;
+package com.example.done.VistorPattern;
 
 import java.io.*;
 import java.util.*;
@@ -162,8 +162,7 @@ public class JavaVistorPattern {
 	static Map<Integer, Set<Integer>> nodesRelationMap = new HashMap<>();
 
 	public static Tree solve() {
-		// read the tree from STDIN and return its root as a return value of this
-		// function
+
 		try {
 			in = new Scanner(System.in);
 			nNodes = in.nextInt();
