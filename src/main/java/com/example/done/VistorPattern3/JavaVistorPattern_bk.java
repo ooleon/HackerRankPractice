@@ -75,126 +75,129 @@ abstract class TreeVis {
 
 /* ---------- */
 class SumInLeavesVisitor extends TreeVis {
-	int result = 0;
+    private int result = 0;
+    
+    public int getResult() {
+      	//implement this
+        return result;
+    }
 
-	public int getResult() {
-		return result;
-	}
+    public void visitNode(TreeNode node) {
+      	//implement this
+    }
 
-	public void visitNode(TreeNode node) {
-	}
-
-	public void visitLeaf(TreeLeaf leaf) {
-		result += leaf.getValue();
-	}
+    public void visitLeaf(TreeLeaf leaf) {
+      	//implement this
+        result += leaf.getValue();
+    }
 }
 
 class ProductOfRedNodesVisitor extends TreeVis {
-	long result = 1;
-	final int M = 1000000007;
+    private static final long MOD = 1000000007;
+    private long product = 1;
+    
+    public int getResult() {
+      	//implement this
+        return (int) (product % MOD);
+    }
 
-	public int getResult() {
-		return (int) result;
-	}
+    public void visitNode(TreeNode node) {
+      	//implement this
+        if (node.getColor().equals(Color.RED)) {
+            product = (product * node.getValue()) % MOD;
+        }
+    }
 
-	public void visitNode(TreeNode node) {
-		if (node.getColor() == Color.RED) {
-			result = (result * node.getValue()) % M;
-		}
-	}
-
-	public void visitLeaf(TreeLeaf leaf) {
-		if (leaf.getColor() == Color.RED) {
-			result = (result * leaf.getValue()) % M;
-		}
-	}
+    public void visitLeaf(TreeLeaf leaf) {
+      	//implement this
+        if (leaf.getColor().equals(Color.RED)) {
+            product = (product * leaf.getValue()) % MOD;
+        }
+    }
 }
 
 class FancyVisitor extends TreeVis {
-	int even = 0;
-	int green = 0;
+    private int greenLeafSum = 0;
+    private int evenDepthSum = 0;
+    
+    public int getResult() {
+      	//implement this
+        return Math.abs(greenLeafSum - evenDepthSum);
+    }
 
-	public int getResult() {
-		return Math.abs(even - green);
-	}
+    public void visitNode(TreeNode node) {
+    	//implement this
+        if (node.getDepth() % 2 == 0) {
+            evenDepthSum += node.getValue();
+        }
+    }
 
-	public void visitNode(TreeNode node) {
-		if (node.getDepth() % 2 == 0) {
-			even += node.getValue();
-		}
-	}
-
-	public void visitLeaf(TreeLeaf leaf) {
-		if (leaf.getColor() == Color.GREEN) {
-			green += leaf.getValue();
-		}
-	}
+    public void visitLeaf(TreeLeaf leaf) {
+    	//implement this
+        if (leaf.getColor().equals(Color.GREEN)) {
+            greenLeafSum += leaf.getValue();
+        }
+    }
 }
 
 public class JavaVistorPattern_bk {
-	static int values[];
-	static Color colors[];
-	static Map<Integer, Set<Integer>> nodesMap = new HashMap<>();
 
+    private static void makeTree(TreeNode[] nodes, int parentId, int childId, HashMap links, int[] values, Color[] colors) {
+        ArrayList<Integer> childLink = (ArrayList<Integer>) links.get(childId);
+        
+        if (childLink.size() == 1){
+            nodes[parentId].addChild(new TreeLeaf(values[childId], colors[childId], nodes[parentId].getDepth() + 1));
+        }
+        else {
+            nodes[childId] = new TreeNode(values[childId], colors[childId], nodes[parentId].getDepth() + 1);
+            nodes[parentId].addChild(nodes[childId]);
+            
+            for (int nextChildId: childLink){
+                if (nextChildId != parentId){
+                    makeTree(nodes, childId, nextChildId, links, values, colors);
+                }
+            }
+        }
+    }
+	
 	public static Tree solve() {
-		Scanner in = new Scanner(System.in);
-		int nnodes = in.nextInt();
-		values = new int[nnodes];
-		for (int i = 0; i < nnodes; i++)
-			values[i] = in.nextInt();
-		colors = new Color[nnodes];
-		for (int i = 0; i < nnodes; i++)
-			colors[i] = (in.nextInt() == 0) ? Color.RED : Color.GREEN;
 
-		Tree rootNode;
-		if (nnodes == 1) {
-			rootNode = new TreeLeaf(values[0], colors[0], 0);
-		} else {
-
-			rootNode = new TreeNode(values[0], colors[0], 0);
-
-			for (int i = 0; i < (nnodes - 1); i++) {
-				int u = in.nextInt();
-				int v = in.nextInt();
-				Set<Integer> uEdges = nodesMap.get(u);
-
-				if (uEdges == null)
-					uEdges = new HashSet<>();
-
-				uEdges.add(v);
-				nodesMap.put(u, uEdges);
-				Set<Integer> vEdges = nodesMap.get(v);
-
-				if (vEdges == null)
-					vEdges = new HashSet<>();
-
-				vEdges.add(u);
-				nodesMap.put(v, vEdges);
-			}
-
-			for (int nodeid : nodesMap.get(1)) {
-				nodesMap.get(nodeid).remove(1);
-				createEdge(rootNode, nodeid);
-			}
-
-		}
-		return rootNode;
-	}
-
-	private static void createEdge(Tree parent, int nodeid) {
-		Set<Integer> nodeEdges = nodesMap.get(nodeid);
-		boolean hasChild = nodeEdges != null && !nodeEdges.isEmpty();
-		if (hasChild) {
-			TreeNode node = new TreeNode(values[nodeid - 1], colors[nodeid - 1], parent.getDepth() + 1);
-			((TreeNode) parent).addChild(node);
-			for (int neighborid : nodeEdges) {
-				nodesMap.get(neighborid).remove(nodeid);
-				createEdge(node, neighborid);
-			}
-		} else {
-			TreeLeaf leaf = new TreeLeaf(values[nodeid - 1], colors[nodeid - 1], parent.getDepth() + 1);
-			((TreeNode) parent).addChild(leaf);
-		}
+        HashMap links = new HashMap();
+        Scanner scan = new Scanner(System.in);
+        int n = scan.nextInt();
+        int[] values = new int[n + 1];
+        Color[] colors = new Color[n + 1]; 
+        TreeNode[] nodes = new TreeNode[n + 1];
+        
+        for (int i = 1; i <= n; i++){
+            values[i] = scan.nextInt();
+            links.put(i, new ArrayList<Integer>());
+        }
+        
+        for (int i = 1; i <= n; i++){
+            colors[i] = scan.nextInt() == 1 ? Color.GREEN : Color.RED;
+        }
+        
+        for (int i = 1; i < n; i++){
+            int u = scan.nextInt();
+            int v = scan.nextInt();
+            ArrayList<Integer> linksU = (ArrayList<Integer>) links.get(u);
+            linksU.add(v);
+            links.put(u, linksU);
+            ArrayList<Integer> linksV = (ArrayList<Integer>) links.get(v);
+            linksV.add(u);
+            links.put(v, linksV);
+        }
+        
+        nodes[1] = new TreeNode(values[1], colors[1], 0);
+        ArrayList<Integer> childrenOfRoot = (ArrayList<Integer>) links.get(1);
+        
+        for (int childId : childrenOfRoot){
+            makeTree(nodes, 1, childId, links, values, colors);
+        }
+        
+        return nodes[1];
+		
 	}
 
 	public static void main(String[] args) {
