@@ -50,9 +50,10 @@ public class JavaVistorPattern_bkTest {
 		File file = new File(sfile);
 		FileInputStream fileIS = new FileInputStream(file);
 		System.setIn(new ByteArrayInputStream(Files.readAllBytes(path) ));
-		com.example.done.VistorPattern2.JavaVistorPattern_domnin.main(null);
+		com.example.done.VistorPattern2.JavaVistorPattern_bk.main(null);
 	}
 
+	
 //	@Test
 	void mainByteArrayTest() throws IOException {
 		String sfile = "/opt/ws/hackerrankpractice/src/test/java/com/example/done/VistorPattern1/vp_1000_test1.txt";
