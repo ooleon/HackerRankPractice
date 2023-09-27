@@ -90,71 +90,99 @@ abstract class TreeVis {
 
 /* ---------- */
 class SumInLeavesVisitor extends TreeVis {
-	int result;
+	private int result;
 
 	public int getResult() {
-		// implement this
+		/*
+		 * Requitement Part I, #1, paragraf 1.
+		 * The SumInLeavesVisitor implementation must return the sum of the values in
+		 * the tree's leaves only.
+		 */
 		return result;
 	}
 
 	public void visitNode(TreeNode node) {
 		result = result + node.getValue();
-		// implement this
+
 	}
 
 	public void visitLeaf(TreeLeaf leaf) {
 		// implement this
 		result = result + leaf.getValue();
 
+		/*
 		System.out.println(leaf.getValue());
 		System.out.println(leaf.getColor());
 		System.out.println(leaf.getDepth());
+		*/
 	}
 }
 
 class ProductOfRedNodesVisitor extends TreeVis {
-	int result;
+	private static final long COMPUTED_MODULO = 1000000007;
+	private long product = 1;
 
 	public int getResult() {
-		// implement this
-		return result;
+		/*
+		 * Requitement Part I, #1, paragraf 2.
+		 * The ProductRedNodesVisitor implementation must return the product of values
+		 * stored in all red nodes, including leaves, computed modulo 10^9 + 7. Note
+		 * that the product of zero values is equal to 1.
+		 */
+		return (int) (product % COMPUTED_MODULO);
 	}
 
 	public void visitNode(TreeNode node) {
-		// implement this
+		if (node.getColor().equals(Color.RED)) {
+			product = (product * node.getValue()) % COMPUTED_MODULO;
+		}
 	}
 
 	public void visitLeaf(TreeLeaf leaf) {
-		// implement this
+		if (leaf.getColor().equals(Color.RED)) {
+			product = (product * leaf.getValue()) % COMPUTED_MODULO;
+		}
 	}
 }
 
 class FancyVisitor extends TreeVis {
-	int result;
+	private int sumEvenNodes = 0;
+	private int sumGreenLeaf = 0;
 
 	public int getResult() {
-		// implement this
-		return result;
+		/*
+		 * Requitement Part I, #1, paragraf 3.
+		 * The FancyVisitor implementation must return the absolute difference between
+		 * the sum of values stored in the tree's non-leaf nodes at even depth and the
+		 * sum of values stored in the tree's green leaf nodes. Recall that zero is an
+		 * even number.
+		 * Zero is a even number.
+		 */
+		return (int) Math.abs(sumEvenNodes - sumGreenLeaf);
 	}
 
 	public void visitNode(TreeNode node) {
-		// implement this
+		if (node.getDepth() % 2 == 0) {
+			sumEvenNodes += node.getValue();
+		}
 	}
 
 	public void visitLeaf(TreeLeaf leaf) {
-		// implement this
+		if (leaf.getColor() == Color.GREEN) {
+			sumGreenLeaf += leaf.getValue();
+		}
 	}
 }
 
 public class JavaVistorPattern {
-	static Scanner in;
 	static int nNodes = 0;
 	static int myDepth = 0;
 	static Tree root = null;
-	static TreeNode n;
+	static TreeNode nTreeNode;
 	static TreeLeaf l;
 	static List<Integer> valoresList = new ArrayList<Integer>(nNodes);
-	static List<Color> colorsList = new ArrayList<Color>(nNodes);
+	static Color colorsArray[];
+	//static List<Color> colorsList = new ArrayList<Color>(nNodes);
 	static List<Integer> uList = new ArrayList<Integer>(nNodes);
 	static List<Integer> vList = new ArrayList<Integer>(nNodes);
 	static List<Integer> differences;
@@ -162,7 +190,7 @@ public class JavaVistorPattern {
 
 	public static Tree solve() {
 
-		try {
+			Scanner in;
 			in = new Scanner(System.in);
 			nNodes = in.nextInt();
 
@@ -173,11 +201,10 @@ public class JavaVistorPattern {
 				valoresList.add(num);
 			}
 
+			colorsArray = new Color[nNodes];
 			// adding color array
-			for (int i = 0; i < nNodes; i++) {
-				int num = in.nextInt();
-				colorsList.add(num == 0 ? Color.RED : Color.GREEN);
-			}
+			for (int i = 0; i < nNodes; i++)
+				colorsArray[i] = (in.nextInt() == 0) ? Color.RED : Color.GREEN;
 
 			// Tree Structure
 			for (int i = 0; i < nNodes - 1; i++) {
@@ -191,17 +218,14 @@ public class JavaVistorPattern {
 			differences.removeAll(uList);
 
 			if (nNodes == 1) {
-				root = new TreeLeaf(valoresList.get(0), colorsList.get(0), 0);
+				root = new TreeLeaf(valoresList.get(0), colorsArray[0], 0);
 
 			} else {
 
-				TreeNode t = new TreeNode(valoresList.get(0), colorsList.get(0), 0);
+				TreeNode t = new TreeNode(valoresList.get(0), colorsArray[0], 0);
 
 				root = generateTree(t);
 			}
-
-		} finally {
-		}
 
 		in.close();
 		/*
@@ -248,14 +272,14 @@ public class JavaVistorPattern {
 			System.out.println(depth + " hoja final");
 			return new TreeLeaf(
 					(int) valoresList.get(depth),
-					colorsList.get(depth),
+					colorsArray[depth],
 					depth);
 
 		} else {
 			return recurciveTree(
 					i,
 					valoresList.get(depth),
-					colorsList.get(depth),
+					colorsArray[depth],
 					depth);
 		}
 	}
