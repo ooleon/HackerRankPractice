@@ -33,7 +33,7 @@ public class JavaVistorPatternTest {
 				+ "3 5\n";
 		System.setIn(new ByteArrayInputStream(data.getBytes()));
 		JavaVistorPattern.main(null);
-		System.out.println(1);
+		System.out.println("fin");
 	}
 
 	//@Test

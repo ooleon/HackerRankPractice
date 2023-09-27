@@ -10,8 +10,6 @@ import java.text.*;
 import java.math.*;
 import java.util.regex.*;
 
-
-
 /**
  *
  * @author leo
@@ -90,6 +88,7 @@ abstract class TreeVis {
 
 }
 
+/* ---------- */
 class SumInLeavesVisitor extends TreeVis {
 	int result;
 
@@ -168,7 +167,7 @@ public class JavaVistorPattern {
 			nNodes = in.nextInt();
 
 			// adding values array
-			
+
 			for (int i = 0; i < nNodes; i++) {
 				int num = in.nextInt();
 				valoresList.add(num);
@@ -261,6 +260,7 @@ public class JavaVistorPattern {
 		}
 	}
 
+	/* ---------- */
 	public static void main(String[] args) {
 		Tree root = solve();
 		SumInLeavesVisitor vis1 = new SumInLeavesVisitor();

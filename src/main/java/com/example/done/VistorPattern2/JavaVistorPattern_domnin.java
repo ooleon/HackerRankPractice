@@ -183,6 +183,7 @@ public class JavaVistorPattern_domnin {
 
     }
 
+/* ---------- */
     public static void main(String[] args) {
         Tree root = solve();
         SumInLeavesVisitor vis1 = new SumInLeavesVisitor();
