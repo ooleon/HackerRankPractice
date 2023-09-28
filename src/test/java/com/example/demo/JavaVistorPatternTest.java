@@ -24,9 +24,9 @@ public class JavaVistorPatternTest {
 
 	@Test
 	void mainTest() {
-		data = "5\n"
-				+ "4 7 2 5 12\n"
-				+ "0 1 0 0 1\n"
+		data = "5\n"	// number of nodes in the tree
+				+ "4 7 2 5 12\n"	//values of nodes
+				+ "0 1 0 0 1\n"		// color of nodes	0 denotes red and 1 denotes green
 				+ "1 2\n"
 				+ "1 3\n"
 				+ "3 4\n"

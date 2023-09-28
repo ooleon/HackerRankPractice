@@ -182,7 +182,6 @@ public class JavaVistorPattern {
 	static TreeLeaf l;
 	static List<Integer> valoresList = new ArrayList<Integer>(nNodes);
 	static Color colorsArray[];
-	//static List<Color> colorsList = new ArrayList<Color>(nNodes);
 	static List<Integer> uList = new ArrayList<Integer>(nNodes);
 	static List<Integer> vList = new ArrayList<Integer>(nNodes);
 	static List<Integer> differences;
@@ -195,7 +194,6 @@ public class JavaVistorPattern {
 			nNodes = in.nextInt();
 
 			// adding values array
-
 			for (int i = 0; i < nNodes; i++) {
 				int num = in.nextInt();
 				valoresList.add(num);
