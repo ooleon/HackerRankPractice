@@ -207,6 +207,7 @@ public class JavaVistorPattern {
 			// Tree Structure
 			for (int i = 0; i < nNodes - 1; i++) {
 
+				// read the edges.
 				int u = in.nextInt();
 				int v = in.nextInt();
 				Set<Integer> uListEdges = nodesRelationMap.get(u);
