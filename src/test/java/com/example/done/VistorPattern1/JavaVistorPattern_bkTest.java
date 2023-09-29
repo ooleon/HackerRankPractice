@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -38,8 +39,8 @@ public class JavaVistorPattern_bkTest {
 	}
 
 	@Test
-	void mainPathTest() throws IOException, URISyntaxException {
-		URL resource = getClass().getClassLoader().getResource("vp_1000_test1.txt");
+	void bkMainPathTest() throws IOException, URISyntaxException {
+		URL resource = getClass().getClassLoader().getResource("vp_1000_test3.txt");
 		if (resource == null) {
 			throw new IllegalArgumentException("file not found!");
 		} else {
@@ -49,7 +50,6 @@ public class JavaVistorPattern_bkTest {
 			System.setIn(new ByteArrayInputStream( fileIS.readAllBytes()));
 			JavaVistorPattern_bk.main(null);
 		}
-
 	}
 
 	// @Test

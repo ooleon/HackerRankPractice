@@ -90,7 +90,7 @@ abstract class TreeVis {
 
 /* ---------- */
 class SumInLeavesVisitor extends TreeVis {
-	private int result;
+	private int result = 0;
 
 	public int getResult() {
 		/*
@@ -102,8 +102,6 @@ class SumInLeavesVisitor extends TreeVis {
 	}
 
 	public void visitNode(TreeNode node) {
-		result = result + node.getValue();
-
 	}
 
 	public void visitLeaf(TreeLeaf leaf) {
@@ -111,10 +109,10 @@ class SumInLeavesVisitor extends TreeVis {
 		result = result + leaf.getValue();
 
 		/*
-		System.out.println(leaf.getValue());
-		System.out.println(leaf.getColor());
-		System.out.println(leaf.getDepth());
-		*/
+		 * System.out.println(leaf.getValue());
+		 * System.out.println(leaf.getColor());
+		 * System.out.println(leaf.getDepth());
+		 */
 	}
 }
 
@@ -175,110 +173,84 @@ class FancyVisitor extends TreeVis {
 }
 
 public class JavaVistorPattern {
-	static int nNodes = 0;
-	static int myDepth = 0;
-	static Tree root = null;
-	static TreeNode nTreeNode;
-	static TreeLeaf l;
-	static List<Integer> valoresList = new ArrayList<Integer>(nNodes);
-	static Color colorsArray[];
-	static List<Integer> uList = new ArrayList<Integer>(nNodes);
-	static List<Integer> vList = new ArrayList<Integer>(nNodes);
-	static List<Integer> differences;
 	static Map<Integer, Set<Integer>> nodesRelationMap = new HashMap<>();
+	static int[] valuesArray;
+	static Color colorsArray[];
 
 	public static Tree solve() {
+		int nNodes = 0;
+		Tree root = null;
 
-			Scanner in;
-			in = new Scanner(System.in);
-			nNodes = in.nextInt();
+		Scanner in;
+		// reading number nodes
+		in = new Scanner(System.in);
+		nNodes = in.nextInt();
 
-			// adding values array
-			for (int i = 0; i < nNodes; i++) {
-				int num = in.nextInt();
-				valoresList.add(num);
-			}
+		// adding values array
+		valuesArray = new int[nNodes];
+		for (int i = 0; i < nNodes; i++) {
+			valuesArray[i] = in.nextInt();
+		}
 
-			colorsArray = new Color[nNodes];
-			// adding color array
-			for (int i = 0; i < nNodes; i++)
-				colorsArray[i] = (in.nextInt() == 0) ? Color.RED : Color.GREEN;
+		colorsArray = new Color[nNodes];
+		// adding color array
+		for (int i = 0; i < nNodes; i++)
+			colorsArray[i] = (in.nextInt() == 0) ? Color.RED : Color.GREEN;
+
+		if (nNodes == 1) {
+			root = new TreeLeaf(valuesArray[0], colorsArray[0], 0);
+
+		} else {
+
+			root = new TreeNode(valuesArray[0], colorsArray[0], 0);
 
 			// Tree Structure
 			for (int i = 0; i < nNodes - 1; i++) {
+
 				int u = in.nextInt();
-				uList.add(u);
-
 				int v = in.nextInt();
-				vList.add(v);
+				Set<Integer> uListEdges = nodesRelationMap.get(u);
+
+				if (uListEdges == null)
+					uListEdges = new HashSet<>();
+
+				uListEdges.add(v);
+				nodesRelationMap.put(u, uListEdges);
+				Set<Integer> vListEdges = nodesRelationMap.get(v);
+
+				if (vListEdges == null)
+					vListEdges = new HashSet<>();
+
+				vListEdges.add(u);
+				nodesRelationMap.put(v, vListEdges);
+
 			}
-			differences = new ArrayList<>(vList);
-			differences.removeAll(uList);
 
-			if (nNodes == 1) {
-				root = new TreeLeaf(valoresList.get(0), colorsArray[0], 0);
-
-			} else {
-
-				TreeNode t = new TreeNode(valoresList.get(0), colorsArray[0], 0);
-
-				root = generateTree(t);
-			}
-
-		in.close();
-		/*
-		 * TreeNode root = new TreeNode((int) vList.get(0), (Integer) nColors.get(0) ==
-		 * 0 ? Color.GREEN : Color.RED, 1);
-		 * // for (int i = 0; i < nNodes; i++) {
-		 * // }
-		 * 
-		 * TreeNode n = new TreeNode(1, Color.GREEN, root.getDepth() + 1);
-		 * TreeLeaf l = new TreeLeaf(3, Color.RED, root.getDepth() + 1);
-		 * n.addChild(new TreeLeaf(2, Color.GREEN, root.getDepth() + 1));
-		 * root.addChild(n);
-		 * root.addChild(l);
-		 * root.addChild(l);
-		 */
-		return root;
-	}
-
-	private static Tree generateTree(TreeNode tree) {
-		int i = 0;
-		do {
-			// for (int j = i; j < uList.lastIndexOf(i); j++) {}
-
-			System.out.println("u: " + uList.get(i) + "\t v: " + vList.get(i));
-			i++;
-		} while (i < (uList.size()));
-		return tree;
-	}
-
-	private static Tree recurciveTree(int i, int valor, Color color, int depth) {
-		System.out.println("vuelta: " + depth);
-		if (differences.contains(depth)) {
-			System.out.println(depth + " hoja");
-		} else {
-			if (depth == 0) {
-				System.out.println(depth + " nodo raiz");
-			} else {
-				System.out.println(depth + " nodo");
+			for (int nodeid : nodesRelationMap.get(1)) {
+				nodesRelationMap.get(nodeid).remove(1);
+				generateTree(root, nodeid);
 			}
 		}
 
-		depth++;
-		if (depth == nNodes - 1) {
-			System.out.println(depth + " hoja final");
-			return new TreeLeaf(
-					(int) valoresList.get(depth),
-					colorsArray[depth],
-					depth);
+		// close the in
+		in.close();
 
+		return root;
+	}
+
+	private static void generateTree(Tree parent, int nodeid) {
+		Set<Integer> nodeEdges = nodesRelationMap.get(nodeid);
+		boolean hasChild = nodeEdges != null && !nodeEdges.isEmpty();
+		if (hasChild) {
+			TreeNode node = new TreeNode(valuesArray[nodeid - 1], colorsArray[nodeid - 1], parent.getDepth() + 1);
+			((TreeNode) parent).addChild(node);
+			for (int neighborid : nodeEdges) {
+				nodesRelationMap.get(neighborid).remove(nodeid);
+				generateTree(node, neighborid);
+			}
 		} else {
-			return recurciveTree(
-					i,
-					valoresList.get(depth),
-					colorsArray[depth],
-					depth);
+			TreeLeaf leaf = new TreeLeaf(valuesArray[nodeid - 1], colorsArray[nodeid - 1], parent.getDepth() + 1);
+			((TreeNode) parent).addChild(leaf);
 		}
 	}
 
