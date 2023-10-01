@@ -131,7 +131,7 @@ class FancyVisitor extends TreeVis {
     }
 }
 
-public class JavaVistorPattern_domnin {
+public class JavaVistorPattern_bk {
 
     public static Tree solve() {
         Scanner in = new Scanner(System.in);
