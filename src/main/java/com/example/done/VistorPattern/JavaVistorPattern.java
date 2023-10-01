@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.example.done.VistorPattern;
 
 import java.io.*;
@@ -12,8 +8,9 @@ import java.util.regex.*;
 
 /**
  *
- * @author leo
- *         https://www.hackerrank.com/challenges/java-vistor-pattern/problem
+ *	@author leo
+ *	hackerrank DONE
+ *	https://www.hackerrank.com/challenges/java-vistor-pattern/problem
  */
 
 enum Color {
