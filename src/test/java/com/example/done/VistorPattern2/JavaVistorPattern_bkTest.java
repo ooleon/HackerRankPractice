@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.Path;
@@ -38,35 +40,22 @@ public class JavaVistorPattern_bkTest {
 				+ "3 5\n"
 				;
 		System.setIn(new ByteArrayInputStream(data.getBytes()));
-		JavaVistorPattern_domnin.main(null);
+		JavaVistorPattern_bk.main(null);
 	}
 
 	@Test
-	void mainPathTest() throws IOException {
-		String sfile = "/opt/ws/hackerrankpractice/src/test/java/com/example/done/VistorPattern1/vp_1000_test1.txt";
-		Path path = Paths.get(sfile);
+	void bkMainPathTest() throws IOException, URISyntaxException {
+		URL resource = getClass().getClassLoader().getResource("vp_1000_test3.txt");
+		if (resource == null) {
+			throw new IllegalArgumentException("file not found!");
+		} else {
 
-
-		File file = new File(sfile);
-		FileInputStream fileIS = new FileInputStream(file);
-		System.setIn(new ByteArrayInputStream(Files.readAllBytes(path) ));
-		com.example.done.VistorPattern2.JavaVistorPattern_domnin.main(null);
-	}
-
-//	@Test
-	void mainByteArrayTest() throws IOException {
-		String sfile = "/opt/ws/hackerrankpractice/src/test/java/com/example/done/VistorPattern1/vp_1000_test1.txt";
-
-
-		File file = new File(sfile);
-		byte[] bytes = new byte[(int) file.length()];
-
-		try (FileInputStream fis = new FileInputStream(file)){
-		fis.read(bytes);
+			File file = new File(resource.toURI());
+			FileInputStream fileIS = new FileInputStream(file);
+			System.setIn(new ByteArrayInputStream( fileIS.readAllBytes()));
+			JavaVistorPattern_bk.main(null);
 		}
-		
-		System.setIn(new ByteArrayInputStream(bytes ));
-		JavaVistorPattern_domnin.main(null);
 	}
+
 
 }
