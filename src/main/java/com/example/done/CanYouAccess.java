@@ -58,8 +58,8 @@ class DoNotTerminate { //This class prevents exit(0)
         private static final long serialVersionUID = 1L;
     }
 
-    public static void forbidExit() {
-        final SecurityManager securityManager = new SecurityManager() {
+	public static void forbidExit() {
+		final SecurityManager securityManager = new SecurityManager() {
             @Override
             public void checkPermission(Permission permission) {
                 if (permission.getName().contains("exitVM")) {
