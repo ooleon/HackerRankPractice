@@ -5,7 +5,9 @@ import java.util.*;
 import java.text.*;
 import java.math.*;
 import java.util.regex.*;
-
+/*
+ * 
+ */
 enum Color {
 	RED, GREEN
 }
