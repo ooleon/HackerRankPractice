@@ -1,6 +1,10 @@
-# HackerRank.com - Java Practical exercises
+# HackerRank.com - Java Practice exercises
 
- 
+# Backend Developer Profiles
+- [Hacker Rank](https://hackerrank.com/ostyleon)
+- [GitHub](https://github.com/ooleon)
+- [Linkedin](https://linkedin.com/ooleondev)
+
 
 ### Reference Documentation
 For further reference, please consider the following sections:
