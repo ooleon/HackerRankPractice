@@ -5,7 +5,6 @@
 - [GitHub](https://github.com/ooleon)
 - [Linkedin](https://linkedin.com/ooleondev)
 
-
 ### Reference Documentation
 For further reference, please consider the following sections:
 
