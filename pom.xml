@@ -13,7 +13,7 @@
 	<artifactId>hackerrankpractice</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>hackerrankpractice</name>
-	<description>Demo project for Spring Boot</description>
+	<description>HackerRank.com - Java Practices and exercises based on Spring Boot, Kubernet, Docker and more</description>
 	<properties>
 		<java.version>17</java.version>
 		<testcontainers.version>1.17.6</testcontainers.version>
